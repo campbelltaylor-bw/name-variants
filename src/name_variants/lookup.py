@@ -138,17 +138,24 @@ def get_variants(
     """
     Return a flat list of variant name strings for the first name in `name`.
 
+    If `name` contains a last name (e.g. "Timothy Cook"), the last name is
+    appended to every variant in the returned list ("Tim Cook", "Timmy Cook", ...).
+
     Parameters
     ----------
     include_canonical:
-        If True, the canonical form is prepended to the returned list.
+        If True, the canonical form (with last name if provided) is prepended.
     """
     result = lookup(name, strip_language=strip_language, fuzzy=fuzzy)
     if not result.found:
         return []
-    variant_list = [v.name for v in result.variants]
+
+    tokens = name.strip().split()
+    suffix = " " + " ".join(tokens[1:]) if len(tokens) > 1 else ""
+
+    variant_list = [v.name + suffix for v in result.variants]
     if include_canonical and result.canonical:
-        variant_list = [result.canonical] + variant_list
+        variant_list = [result.canonical + suffix] + variant_list
     return variant_list
 
 

@@ -159,9 +159,19 @@ class TestConvenienceFunctions:
     def test_get_variants_not_found(self):
         assert get_variants("Xyzzy_Unknown") == []
 
-    def test_get_variants_first_name_from_full(self):
+    def test_get_variants_full_name_appends_last_name(self):
         variants = get_variants("Timothy Cook")
+        assert "Tim Cook" in variants
+        assert all(v.endswith(" Cook") for v in variants)
+
+    def test_get_variants_first_name_only_no_suffix(self):
+        variants = get_variants("Timothy")
         assert "Tim" in variants
+        assert not any(" " in v for v in variants)
+
+    def test_get_variants_include_canonical_with_last_name(self):
+        variants = get_variants("Timothy Cook", include_canonical=True)
+        assert variants[0] == "Timothy Cook"
 
     def test_canonical_function(self):
         assert canonical("Tim") == "Timothy"
