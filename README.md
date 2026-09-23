@@ -5,13 +5,19 @@ Bidirectional lookup of personal name variants and canonical forms.
 ```python
 from name_variants import get_variants, lookup, canonical
 
-# Get all variants for a first name (or "First Last" string)
+# Get all variants for a first name
 get_variants("Timothy")        # ['Tim', 'Timmy', 'Tisha', ...]
-get_variants("Timothy Cook")   # same — first token is used
+
+# Provide a full name and the last name is appended to every variant
+get_variants("Timothy Cook")   # ['Tim Cook', 'Timmy Cook', 'Tisha Cook', ...]
+get_variants("Timothy Cook", include_canonical=True)  # ['Timothy Cook', 'Tim Cook', ...]
 
 # Reverse lookup: find the canonical form from any variant
 canonical("Tim")               # 'Timothy'
 canonical("Gail")              # 'Abigail'
+
+# Reverse lookup also works with a full name
+get_variants("Tim Cook")       # ['Tim Cook', 'Timmy Cook', ...] — resolves Tim → Timothy
 
 # Full result object
 result = lookup("Tim")
