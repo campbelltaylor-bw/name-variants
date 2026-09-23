@@ -7,14 +7,12 @@ name = "name-variants"
 version = "0.1.0"
 description = "Bidirectional lookup of personal name variants and canonical forms"
 readme = "README.md"
-license = { text = "MIT" }
 requires-python = ">=3.9"
 dependencies = []
 keywords = ["names", "name-matching", "nlp", "entity-resolution", "genealogy"]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
-    "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
